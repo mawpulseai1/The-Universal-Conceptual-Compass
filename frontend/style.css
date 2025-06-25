@@ -1,0 +1,319 @@
+/* style.css - Dark Glow Theme for Aether's Frontend */
+
+:root {
+    /* Dark theme color palette - Orange Theme */
+    --primary-bg: #121212;
+    --secondary-bg: #1e1e1e;
+    --text-color: #e0e0e0;
+    --accent-color: #ff6b35;
+    --accent-glow: 0 0 10px rgba(255, 107, 53, 0.7);
+    --border-color: #333;
+    --border-glow: 0 0 15px rgba(255, 107, 53, 0.5);
+    --card-bg: #252525;
+    --text-muted: #a0a0a0;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+    line-height: 1.7;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background-image: radial-gradient(circle at 25% 25%, #1a1a2e 0%, #121212 100%);
+}
+
+.container {
+    background-color: rgba(30, 30, 30, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: var(--border-glow);
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, rgba(0,0,0,0) 70%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+h1 {
+    font-size: 2.8em;
+    color: #fff;
+    margin-bottom: 0.3em;
+    text-shadow: 0 0 15px rgba(255, 107, 53, 0.5);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.tagline {
+    font-size: 1.3em;
+    color: var(--text-muted);
+    margin: 0.5em 0 1.5em;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+.subtitle {
+    font-size: 1.1em;
+    color: var(--text-muted);
+    margin-bottom: 2.5em;
+    line-height: 1.6;
+}
+
+.input-section {
+    margin: 0 auto 2.5em auto;
+    position: relative;
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+textarea {
+    width: 100%;
+    padding: 1.2rem;
+    margin: 0 auto 1.5rem auto;
+    background: rgba(40, 40, 40, 0.7);
+    border: 1px solid rgba(123, 44, 191, 0.3);
+    border-radius: 10px;
+    font-size: 1.05em;
+    min-height: 140px;
+    color: var(--text-color);
+    resize: vertical;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: block;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(123, 44, 191, 0.3);
+    background: rgba(50, 50, 50, 0.8);
+}
+
+button {
+    background: linear-gradient(135deg, var(--accent-color), #ff9e1f);
+    color: #121212;
+    padding: 0.9rem 2.2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.results-section {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1.8rem;
+    border-radius: 12px;
+    min-height: 100px;
+    text-align: left;
+    margin: 2.5em auto 0 auto;
+    max-width: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    color: #000000;
+}
+
+.result-section {
+    margin-bottom: 2rem;
+}
+
+.insight-content {
+    line-height: 1.8;
+    color: #000000;
+    font-size: 1.05em;
+}
+
+.insight-content p {
+    margin-bottom: 1.2em;
+}
+
+.insight-content strong,
+.insight-content b {
+    color: #000000;
+    font-weight: 700;
+}
+
+.initial-message {
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.loading {
+    display: inline-block;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #9d4edd;
+}
+
+.example-section {
+    margin-top: 3em;
+    text-align: left;
+    border-top: 1px solid var(--border-color);
+    padding-top: 2em;
+}
+
+.example-section h2 {
+    font-size: 1.5em;
+    color: var(--accent-color);
+    margin-top: 0;
+}
+
+.example-section ul {
+    list-style: disc inside;
+    padding-left: 0;
+}
+
+.example-section li {
+    margin-bottom: 0.5em;
+}
+
+.note {
+    font-style: italic;
+    color: #777;
+    font-size: 0.9em;
+}
+
+.footer {
+    margin-top: 3em;
+    font-size: 0.8em;
+    color: #999;
+}
+
+/* Results Section Styling */
+#results {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 2em;
+    text-align: left;
+}
+
+.result-section {
+    margin-bottom: 2em;
+    padding: 1.5em;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.result-section h3 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 1em;
+    font-size: 1.2em;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5em;
+}
+
+.insight-content {
+    line-height: 1.8;
+    color: #333;
+    background: white;
+    padding: 1.5em;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin: 1em 0;
+}
+
+.insight-content h3 {
+    color: #2c3e50;
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+}
+
+.insight-content p {
+    margin-bottom: 1.2em;
+}
+
+.concept-name {
+    font-size: 1.4em;
+    font-weight: 600;
+    color: #007bff;
+    margin: 1em 0;
+    padding: 0.5em;
+    background-color: #f0f7ff;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.result-section p {
+    line-height: 1.7;
+    color: #4a4a4a;
+    margin: 1em 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .result-section {
+        padding: 1em;
+    }
+    
+    .concept-name {
+        font-size: 1.2em;
+    }
+}
