@@ -41,9 +41,12 @@
     <!-- Backend URL Configuration -->
     <script>
         // Set the backend URL based on the current environment
-        // For GitHub Pages, this will be your deployed backend URL (e.g., 'https://your-backend.herokuapp.com/analyze')
-        // For local development, it will fall back to localhost
-        window.BACKEND_URL = 'https://your-backend-url.herokuapp.com/analyze';
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        window.BACKEND_URL = isLocalhost 
+            ? 'http://localhost:5000/analyze'  // For local development
+            : 'https://the-universal-conceptual-compass.onrender.com/analyze';  // Your Render backend URL
+        
+        console.log('Backend URL set to:', window.BACKEND_URL);
     </script>
     <script src="script.js"></script>
 </body>

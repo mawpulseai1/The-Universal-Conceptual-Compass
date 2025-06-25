@@ -20,11 +20,18 @@ def serve_frontend():
     return send_from_directory(app.static_folder, 'index.html')
 
 
-# Configure CORS to allow all origins for development
-# In production, replace with specific allowed origins
+# Configure CORS to allow requests from your frontend domain
+frontend_url = 'https://the-universal-conceptual-compass.onrender.com'
+cors_origins = [
+    'http://localhost:5000',
+    'http://127.0.0.1:5000',
+    'http://localhost:8000',
+    frontend_url
+]
+
 CORS(app, resources={
     r"/analyze": {
-        "origins": ["http://localhost:5000", "http://127.0.0.1:5000", "*"],
+        "origins": cors_origins,
         "methods": ["POST", "OPTIONS", "GET"],
         "allow_headers": ["Content-Type", "Authorization"],
         "supports_credentials": True,
@@ -37,11 +44,27 @@ CORS(app, resources={
 # Add CORS headers to all responses
 @app.after_request
 def after_request(response):
-    response.headers.add('Access-Control-Allow-Origin',
-                         request.headers.get('Origin', '*'))  # Use request origin for production flexibility
+    # Get the origin from the request
+    origin = request.headers.get('Origin', '')
+    
+    # Check if the origin is in our allowed origins
+    allowed_origins = cors_origins + ['http://' + origin, 'https://' + origin]
+    
+    # If origin is in allowed_origins, use it, otherwise use the first allowed origin
+    if origin in allowed_origins or any(origin.startswith(allowed) for allowed in allowed_origins):
+        response.headers.add('Access-Control-Allow-Origin', origin)
+    else:
+        response.headers.add('Access-Control-Allow-Origin', cors_origins[0])
+        
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     response.headers.add('Access-Control-Allow-Credentials', 'true')
+    response.headers.add('Access-Control-Max-Age', '600')  # Cache for 10 minutes
+    
+    # Handle preflight requests
+    if request.method == 'OPTIONS':
+        return response, 200
+        
     return response
 
 
