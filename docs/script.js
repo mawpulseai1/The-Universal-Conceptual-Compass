@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const analyzeButton = document.getElementById('analyzeBtn');
     const resultsDiv = document.getElementById('results');
 
-    // Backend endpoint - using 127.0.0.1 to match the origin
-    const BACKEND_ENDPOINT = 'http://127.0.0.1:5000/analyze';
+    // Backend endpoint - use environment variable if available, otherwise fall back to localhost for development
+    const BACKEND_ENDPOINT = window.BACKEND_URL || 'http://127.0.0.1:5000/analyze';
     console.log('Using backend endpoint:', BACKEND_ENDPOINT);
 
     // Set initial message
