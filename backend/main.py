@@ -10,7 +10,7 @@ import datetime  # For accurate timestamping
 
 # Initialize Flask app with static folder for local development
 app = Flask(__name__,
-            static_folder='../frontend',  # Serve files from the frontend directory
+            static_folder='../docs',  # Serve files from the docs directory
             static_url_path='')  # Serve files from the root URL
 
 
@@ -332,15 +332,13 @@ def analyze_concept():
 # --- Entry Point for Serverless Function ---
 if __name__ == '__main__':
     # Ensure the static folder exists for local testing
-    os.makedirs(app.static_folder, exist_ok=True)
+    if not os.path.exists(app.static_folder):
+        os.makedirs(app.static_folder, exist_ok=True)
+        print(f"Created static folder at: {os.path.abspath(app.static_folder)}")
+    else:
+        print(f"Using existing static folder at: {os.path.abspath(app.static_folder)}")
 
-    # Set a dummy API key for local testing if not already set
-    if "GEMINI_API_KEY" not in os.environ:
-        os.environ["GEMINI_API_KEY"] = "YOUR_GEMINI_API_KEY_HERE"  # Replace with your actual key
-        print(
-            "\nWARNING: GEMINI_API_KEY environment variable not set. Using placeholder. For full functionality, set your actual API key.\n")
-
-    # Run the app on port 5000
+    # Get port from environment variable or use 5000 as default
     port = int(os.environ.get('PORT', 5000))
-    print(f"\nStarting Aether backend on port {port}...")
-    app.run(debug=True, host='0.0.0.0', port=port)
+    print(f"Starting Aether backend on port {port}...")
+    app.run(host='0.0.0.0', port=port, debug=False)  # debug=False for production
